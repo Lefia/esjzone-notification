@@ -34,12 +34,6 @@ jobs:
       - name: 'Install requirements'
         run: pip install -r ./requirements.txt
 
-      - name: 'Set env'
-        env:
-          EMAIL: ${{ secrets.EMAIL }}
-          PASSWORD: ${{ secrets.PASSWORD }}
-        run: echo $EMAIL
-
       - name: 'Working'
         run: 
           python ./main.py

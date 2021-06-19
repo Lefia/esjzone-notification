@@ -9,8 +9,8 @@ import os
 with open("./data.json", 'r') as jsonfile:
     data = json.load(jsonfile)
 
-email = os.environ.get('EMAIL')
-password = os.environ.get('PASSWORD')
+email = "charlie20031222@gmail.com"
+password = "Lefia20031222"
 content=""
 
 for i in range(5): #
