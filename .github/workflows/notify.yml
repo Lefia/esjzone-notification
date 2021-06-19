@@ -38,7 +38,7 @@ jobs:
         env:
           EMAIL: ${{ secrets.EMAIL }}
           PASSWORD: ${{ secrets.PASSWORD }}
-        run: echo "Set env"
+        run: echo ${{ secrets.EMAIL }}
 
       - name: 'Working'
         run: 
