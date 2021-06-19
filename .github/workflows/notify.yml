@@ -39,6 +39,7 @@ jobs:
           python ./main.py
 
       - name: 'Send mail'
+        if: ${{ env.JSON_CHANGE == '1' }}
         uses: dawidd6/action-send-mail@master
         with:
           server_address: smtp.gmail.com
@@ -46,10 +47,10 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.PASSWORD }}
           subject: ESJzone 小說更新通知
-          html_body: file://README.html
+          html_body: file://content.html
           to: ${{ secrets.RECEIVER }}
           from: GitHub Actions
-          
+
       - name: commit
         if: ${{ env.JSON_CHANGE == '1' }}
         run: |
