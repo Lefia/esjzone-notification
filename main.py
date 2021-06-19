@@ -6,7 +6,7 @@ import os
 with open("./data.json", 'r') as jsonfile:
     data = json.load(jsonfile)
 
-f = open('content.html','w')
+
 content = ""
 
 for i in range(5): #
@@ -27,9 +27,14 @@ for i in range(5): #
         data["Lastest"][i] = id #更新最新小說id
 
 if content != "":
+    f = open('content.html','w')
     f.write(f'<html><body>{content} <b>更新了!</b></body></html>')
     f.close()
-    os.environ["JSON_CHANGE"] = "1"
+else:
+    if os.path.exists("content.html"):
+        os.remove("content.html")
+    else:
+        print("The file does not exist")
 
 with open("./data.json", "w") as jsonfile:
     json.dump(data, jsonfile)

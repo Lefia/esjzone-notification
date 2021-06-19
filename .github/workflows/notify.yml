@@ -38,8 +38,14 @@ jobs:
         run: 
           python ./main.py
 
+      - name: Check file existence
+        id: check_files
+        uses: andstor/file-existence-action@v1
+        with:
+          files: "content.html"
+
       - name: 'Send mail'
-        if: ${{ env.JSON_CHANGE == '1' }}
+        if: steps.check_files.outputs.files_exists == 'true'
         uses: dawidd6/action-send-mail@master
         with:
           server_address: smtp.gmail.com
@@ -52,14 +58,15 @@ jobs:
           from: GitHub Actions
 
       - name: commit
-        if: ${{ env.JSON_CHANGE == '1' }}
+        if: steps.check_files.outputs.files_exists == 'true'
         run: |
           git config --global user.email lefia1222@gmail.com
           git config --global user.name Lefia
           git add .
           git commit -m "update json file" -a
+
       - name: Push changes
-        if: ${{ env.JSON_CHANGE == '1' }}
+        if: steps.check_files.outputs.files_exists == 'true'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.TOKEN }}
