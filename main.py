@@ -42,6 +42,7 @@ if content != "":
     mySMTP.starttls() #加密
     mySMTP.login(email, password) #登入
     mySMTP.sendmail(email, "lefia1222@gmail.com",  msg.as_string()) #傳送
+    os.environ["JSON_CHANGE"] = "1"
 
 with open("./data.json", "w") as jsonfile:
     json.dump(data, jsonfile)
