@@ -8,7 +8,7 @@ on:
   #pull_request:
     #branches: [ main ]
   schedule:
-    - cron: '0 0-23 * * *'
+    - cron: '0 0,3,6,9,12,15,18,21 * * *'
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
@@ -38,6 +38,18 @@ jobs:
         run: 
           python ./main.py
 
+      - name: 'Send mail'
+        uses: dawidd6/action-send-mail@master
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          subject: ESJzone 小說更新通知
+          html_body: file://README.html
+          to: ${{ secrets.RECEIVER }}
+          from: GitHub Actions
+          
       - name: commit
         if: ${{ env.JSON_CHANGE == '1' }}
         run: |

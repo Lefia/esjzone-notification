@@ -1,17 +1,13 @@
 import requests
 import json 
 from bs4 import BeautifulSoup
-import smtplib
-from email.mime.text import MIMEText 
-from email.header import Header 
 import os
 
 with open("./data.json", 'r') as jsonfile:
     data = json.load(jsonfile)
 
-email = "charlie20031222@gmail.com"
-password = "Lefia20031222"
-content=""
+f = open('content.html','w')
+content = ""
 
 for i in range(5): #
 
@@ -31,17 +27,8 @@ for i in range(5): #
         data["Lastest"][i] = id #更新最新小說id
 
 if content != "":
-    #email內容
-    msg = MIMEText(f'<html><body>{content} <b>更新了!</b></body></html>', 'html', 'utf-8')
-    msg['Subject'] = Header("Esjzone 小說更新通知", 'utf-8') 
-    msg['From'] = email
-    msg['To'] = "lefia1222@gmail.com"
-
-    mySMTP = smtplib.SMTP("smtp.gmail.com", 587) #伺服器
-    mySMTP.ehlo() #打招呼
-    mySMTP.starttls() #加密
-    mySMTP.login(email, password) #登入
-    mySMTP.sendmail(email, "lefia1222@gmail.com",  msg.as_string()) #傳送
+    f.write(f'<html><body>{content} <b>更新了!</b></body></html>')
+    f.close()
     os.environ["JSON_CHANGE"] = "1"
 
 with open("./data.json", "w") as jsonfile:
