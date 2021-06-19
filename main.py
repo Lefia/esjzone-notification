@@ -6,7 +6,7 @@ from email.mime.text import MIMEText
 from email.header import Header 
 import os
 
-with open("/mnt/c/Users/Lefia/Documents/Projects/esjzone/data.json", 'r') as jsonfile:
+with open("./data.json", 'r') as jsonfile:
     data = json.load(jsonfile)
 
 email = os.environ.get('EMAIL')
@@ -43,5 +43,5 @@ if content != "":
     mySMTP.login(email, password) #登入
     mySMTP.sendmail(email, "lefia1222@gmail.com",  msg.as_string()) #傳送
 
-with open("/mnt/c/Users/Lefia/Documents/Projects/esjzone/data.json", "w") as jsonfile:
+with open("./data.json", "w") as jsonfile:
     json.dump(data, jsonfile)
