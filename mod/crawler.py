@@ -5,7 +5,7 @@ class Crawler:
 
     def info(book):
         url = f"https://www.esjzone.cc/detail/{ book }.html"
-        htmlFile = requests.get(url, headers=headers)
+        htmlFile = requests.get(url)
         soup = BeautifulSoup(htmlFile.text, 'lxml')
         link = soup.find(id="integration").find_all('a')
         a = link[-1]
