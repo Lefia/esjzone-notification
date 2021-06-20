@@ -1,40 +1,20 @@
-import requests
-import json 
-from bs4 import BeautifulSoup
-import os
+from mod.file import Data, Content
+from mod.crawler import crawler
 
-with open("./data.json", 'r') as jsonfile:
-    data = json.load(jsonfile)
+data = Data("./Books.json")
+Books = data.open()
 
+content = Content("")
 
-content = ""
+lastest, title, length = crawler.info(Books)
 
-for i in range(5): #
+for i in range(length): 
+    
+    if Books["Lastest"][i] != lastest[i]: #如果文章更新了
 
-    url = "https://www.esjzone.cc/detail/" + data["Books"][i] + ".html"
-    htmlFile = requests.get(url)
+        content.add(lastest[i], title[i])
+        Books["Lastest"][i] = lastest[i] #更新最新小說id
 
-    soup = BeautifulSoup(htmlFile.text, 'lxml')
-    link = soup.find(id="integration").find_all('a') #在文章區塊尋找所有連結
-    id = link[-1]["href"][30+len(data["Books"][i]):-5] #取文章id
+content.exists()
 
-    title = soup.find(class_="p-t-10").get_text()
-
-    if id != data["Lastest"][i]: #如果文章更新了
-
-        content += '<a href="https://esjzone.cc/forum/' + data["Books"][i] + "/" + id + '.html">' + title + '</a><br>'
-        
-        data["Lastest"][i] = id #更新最新小說id
-
-if content != "":
-    f = open('content.html','w')
-    f.write(f'<html><body>{content} <b>更新了!</b></body></html>')
-    f.close()
-else:
-    if os.path.exists("content.html"):
-        os.remove("content.html")
-    else:
-        print("The file does not exist")
-
-with open("./data.json", "w") as jsonfile:
-    json.dump(data, jsonfile)
+data.close(Books)
