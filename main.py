@@ -1,7 +1,7 @@
 from mod.file import Data, Content
 from mod.crawler import crawler
 
-data = Data("./Books.json")
+data = Data("./books.json")
 Books = data.open()
 
 content = Content("")
