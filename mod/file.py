@@ -18,7 +18,7 @@ class Content:
         self.text = text
     
     def add(self, id, lastest, book_title, title):
-        self.text += f'<a href="https://esjzone.cc/forum/{ id }/{ lastest }.html">{ book_title }</a><p>&emsp;{ title }</P><br>'
+        self.text += f'<a href="https://esjzone.cc/forum/{ id }/{ lastest }.html">{ book_title }</a><p><br>{ title }</P><br>'
     
     def exists(self):
         if self.text != "":
