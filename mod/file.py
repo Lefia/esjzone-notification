@@ -2,8 +2,8 @@ import json
 import os
 
 class Data:
-    def __init__(self, data_laocation):
-        self.data_location = data_laocation
+    def __init__(self, data_location):
+        self.data_location = data_location
     
     def open(self):
         with open(self.data_location, 'r') as jsonfile:
