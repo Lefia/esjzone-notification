@@ -46,7 +46,7 @@ jobs:
 
       - name: 'Send mail'
         if: steps.check_files.outputs.files_exists == 'true'
-        uses: dawidd6/action-send-mail@master
+        uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 465
@@ -56,6 +56,7 @@ jobs:
           html_body: file://content.html
           to: ${{ secrets.RECEIVER }}
           from: GitHub Actions
+          priority: normal
 
       - name: commit
         if: steps.check_files.outputs.files_exists == 'true'
