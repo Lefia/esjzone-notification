@@ -7,10 +7,11 @@ class Crawler:
         url = f"https://www.esjzone.cc/detail/{ book }.html"
         htmlFile = requests.get(url)
         soup = BeautifulSoup(htmlFile.text, 'lxml')
-        link = soup.find("div", attrs={"id":"chapterList"}).find_all("a")
-        a = link[-1]
-        lastest = a['href'][30+len(book):-5]
-        title = a.find('p').get_text()
+        chapterlist = soup.find("div", attrs={"id":"chapterList"})
+        link_div = chapterlist.find_all("a")
+        link = link_div[-1]
+        lastest = link['href'][30+len(book):-5]
+        title = link.find('p').get_text()
         print(title)
 
         if wantBookTitle == True:
