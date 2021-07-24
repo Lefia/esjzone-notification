@@ -13,7 +13,6 @@ class Crawler:
         link = link_div[-1]
         lastest = link['href'][30+len(book):-5]
         title = link.find('p').get_text()
-        print(title)
 
         if wantBookTitle == True:
             bookTitle = soup.find(class_="p-t-10").get_text()
