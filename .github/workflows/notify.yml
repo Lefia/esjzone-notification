@@ -8,8 +8,8 @@ on:
   #pull_request:
     #branches: [ main ]
 
-  #schedule:
-    #- cron: '0 1,4,7,10,13,16,19,22 * * *'
+  schedule:
+    - cron: '0 1,4,7,10,13,16,19,22 * * *'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
