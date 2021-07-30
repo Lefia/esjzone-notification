@@ -12,7 +12,7 @@ for i in range(len(Books["Id"])):
     if Books["Lastest"][i] != lastest: 
         content.add(Books["Id"][i], lastest, Books["BookTitle"][i], title)
         Books["Lastest"][i] = lastest
-    sleep(5) 
+    sleep(3) 
 
 content.exists()
 
