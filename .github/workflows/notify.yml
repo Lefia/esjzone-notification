@@ -1,4 +1,4 @@
-name: notfy
+name: notify
 
 # Controls when the action will run. 
 on:
@@ -42,7 +42,7 @@ jobs:
         id: check_files
         uses: andstor/file-existence-action@v1
         with:
-          files: "content.html"
+          files: "email.html"
 
       - name: 'Send mail'
         if: steps.check_files.outputs.files_exists == 'true'
@@ -53,7 +53,7 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.PASSWORD }}
           subject: ESJzone 小說更新通知
-          html_body: file://content.html
+          html_body: file://email.html
           to: ${{ secrets.RECEIVER }}
           from: GitHub Actions
           priority: normal
@@ -64,7 +64,7 @@ jobs:
           git config --global user.email lefia1222@gmail.com
           git config --global user.name Lefia
           git add .
-          git commit -m "update json file" -a
+          git commit -m "update books data" -a
 
       - name: Push changes
         if: steps.check_files.outputs.files_exists == 'true'
