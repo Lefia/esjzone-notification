@@ -1,19 +1,32 @@
-from mod.file import Data, Content
-from mod.crawler import Crawler
+import sqlite3
 from time import sleep
-data = Data("./books.json")
-Books = data.open()
+from modules.crawler import Crawler
+from modules.email import Email
 
-content = Content("")
+data = sqlite3.connect('books.sqlite')
+cur = data.cursor()
 
-for i in range(len(Books["Id"])): 
-    lastest, title = Crawler.info(Books["Id"][i])
-    if Books["Lastest"][i] != lastest: 
-        content.add(Books["Id"][i], lastest, Books["BookTitle"][i], title)
-        Books["Lastest"][i] = lastest
-        
-    sleep(3) 
+cur.execute('SELECT * FROM books')
+books = cur.fetchall()
 
-content.exists()
+email = Email('')
 
-data.close(Books)
+for row in books:
+    bookID = row[0]
+    savedChapterID = str(row[1])
+    lastestChapterID, lastestChapterTitle, bookTitle = Crawler.info(bookID)
+    if savedChapterID != lastestChapterID: 
+        email.add(bookID, lastestChapterID, bookTitle, lastestChapterTitle)
+        cur.execute(f'UPDATE books SET Lastest = {lastestChapterID} WHERE ID = {bookID}')
+    sleep(3)
+
+email.fileExists()
+
+data.commit()
+data.close()
+    
+    
+
+
+# cur.execute("INSERT INTO books VALUES(1619378930, 138753, '龍鎖的奧日 - 心中的“芯”')")
+# conn.commit()
