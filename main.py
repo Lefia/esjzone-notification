@@ -1,3 +1,4 @@
+from pydoc import stripid
 import sqlite3
 from time import sleep
 from modules.crawler import Crawler
@@ -15,6 +16,7 @@ for row in books:
     bookID = row[0]
     savedChapterID = str(row[1])
     lastestChapterID, lastestChapterTitle, bookTitle = Crawler.info(bookID)
+    lastestChapterTitle = stripid(lastestChapterTitle)
     if savedChapterID != lastestChapterID: 
         email.add(bookID, lastestChapterID, bookTitle, lastestChapterTitle)
         cur.execute(f'UPDATE books SET Lastest = {lastestChapterID} WHERE ID = {bookID}')
