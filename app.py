@@ -38,8 +38,8 @@ while(True):
     elif cmd == "remove":
         print("-"*10)
         bookID = input("請輸入小說ID\n>> ")
-        print(bookID)
-        cur.execute(f'DELETE FROM books WHERE ID = \'{bookID}\'')
+        bookID = int(bookID)
+        cur.execute(f'DELETE FROM books WHERE ID = {bookID}')
         data.commit()
         cur.close()
         print("移除成功")
